@@ -24,35 +24,16 @@ public class Main {
         List<String> family = persons.stream()
                 .filter(sex -> sex.getSex().equals(Sex.MAN))
                 .filter(age -> age.getAge() > 18 && age.getAge() < 27)
-                .map(value -> value.getFamily())
+                .map(Person::getFamily)
                 .collect(Collectors.toList());
         System.out.println(family);
 
-        List<Person> workersMan = persons.stream()
-                .filter(sex -> sex.getSex().equals(Sex.MAN))
-                .filter(age -> age.getAge() > 18 && age.getAge() < 65)
+        List<Person> workers = persons.stream()
+                .filter(age -> age.getAge() >= 18)
+                .filter(sex -> sex.getSex().equals(Sex.WOMAN) && sex.getAge() < 60 || sex.getSex().equals(Sex.MAN) && sex.getAge() < 65)
                 .sorted(Comparator.comparing(Person::getFamily))
                 .collect(Collectors.toList());
-        System.out.println(workersMan);
-
-        List<Person> workersWoman = persons.stream()
-                .filter(sex -> sex.getSex().equals(Sex.WOMAN))
-                .filter(age -> age.getAge() > 18 && age.getAge() < 60)
-                .sorted(Comparator.comparing(Person::getFamily))
-                .collect(Collectors.toList());
-        System.out.println(workersWoman);
-
-
-
-//                .filter(sex ->{
-//                    if (sex.getSex().equals(Sex.MAN)){
-//                        sex.getAge() > 18 && sex.getAge() < 65
-//                    }else {
-//                        sex.getAge() > 18 && sex.getAge() < 60
-//                    }
-//                    })
-
-
+        System.out.println(workers);
 
     }
 }
